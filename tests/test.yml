@@ -1,0 +1,6 @@
+---
+- name: Install and configure apprise
+  hosts: apprise
+  remote_user: root
+  roles:
+    - apprise

@@ -1,0 +1,30 @@
+---
+apprise: {}
+apprise_defaults:
+  enabled: False
+  packages:
+    - python3
+    - python3-pip
+    - python3-setuptools
+    - python-setuptools
+    - python3-venv
+  owner: root
+  venv_dir: /root/.venv_apprise
+  sensitive_vars_dir: /root
+  # Several different notifications can be created on one host for
+  # different services
+  notifications: []
+    # Example:
+    #- name: test
+    #  title: "Something went wrong"
+    #  # Allowed body types: text, cmd_stdout
+    #  body_type: text
+    #  body_text: "Hey there"
+    #  # Script which will run this, will always get the name of
+    #  # systemd unit which was call it, as argument
+    #  body_cmd: '$(systemctl status --full "$1")'
+    #  # Allowed methods: telegram
+    #  notification_method: telegram
+    #  telegram_notify_settings:
+    #    bottoken: token
+    #    chat_id: "chat ID number"

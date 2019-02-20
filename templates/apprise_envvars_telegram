@@ -1,0 +1,6 @@
+set -a
+
+BOT_TOKEN='{{ item.telegram_notify_settings.bottoken }}'
+CHAT_ID='{{ item.telegram_notify_settings.chat_id }}'
+
+set +a

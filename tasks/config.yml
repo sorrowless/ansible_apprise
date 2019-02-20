@@ -1,0 +1,35 @@
+---
+- name: Ensure apprise sensitive environment variables files
+  template:
+    src: "apprise_envvars_{{ item.notification_method }}"
+    dest: "{{ apprise.sensitive_vars_dir }}/.apprise.{{ item.name }}"
+    owner: "{{ apprise.owner }}"
+    group: "{{ apprise.owner }}"
+    mode: 0600
+  loop: "{{ apprise.notifications }}"
+  become_user: "{{ apprise.owner }}"
+  become: yes
+
+- name: Ensure apprise notification scripts
+  template:
+    src: "apprise_notify_{{ item.notification_method }}.sh"
+    dest: "/usr/bin/apprise_notify_{{ item.name }}_{{ item.notification_method }}"
+    owner: "{{ apprise.owner }}"
+    group: "{{ apprise.owner }}"
+    mode: 0750
+  loop: "{{ apprise.notifications }}"
+  become: yes
+
+- name: Ensure apprise systemd services
+  template:
+    src: "apprise_systemd.service"
+    dest: "/etc/systemd/system/apprise-{{ item.name }}-{{ item.notification_method }}@.service"
+    owner: "{{ apprise.owner }}"
+    group: "{{ apprise.owner }}"
+    mode: 0644
+  loop: "{{ apprise.notifications }}"
+  become: yes
+
+- name: Ensure systemd to know about new services
+  systemd:
+    daemon_reload: yes

@@ -1,0 +1,8 @@
+[Unit]
+Description=Notify user by {{ item.notification_method }} about %i
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/apprise_notify_{{ item.name }}_{{ item.notification_method }} %i
+User=root
+Group=systemd-journal

@@ -1,0 +1,20 @@
+---
+- name: Install needed packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ apprise.packages }}"
+
+- name: Install python dependencies into virtualenv
+  pip:
+    name: apprise
+    virtualenv: "{{ apprise.venv_dir }}"
+    virtualenv_command: /usr/bin/python3 -m venv
+    virtualenv_site_packages: no
+  become_user: "{{ apprise.owner }}"
+  become: yes
+
+- name: Upgrade pip in virtualenv
+  shell: "{{ apprise.venv_dir }}/bin/pip install --upgrade pip"
+  become_user: "{{ apprise.owner }}"
+  become: yes
