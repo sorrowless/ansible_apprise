@@ -22,7 +22,7 @@ apprise_defaults:
     #  body_text: "Hey there"
     #  # Script which will run this, will always get the name of
     #  # systemd unit which was call it, as argument
-    #  body_cmd: '$(systemctl status --full "$1")'
+    #  body_cmd: 'systemctl status --full $1'
     #  # Allowed methods: telegram
     #  notification_method: telegram
     #  telegram_notify_settings:
