@@ -9,7 +9,7 @@ Ansible 2.4
 
 #### Role Variables
 
-Look for these at `defaults/mail.yml` file.
+Look for these at `defaults/main.yml` file.
 
 #### Dependencies
 
