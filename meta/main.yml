@@ -2,6 +2,7 @@ galaxy_info:
   author: Stanislaw Bogatkin
   description: Ansible role to install and configure Apprise
   company: Personal project
+  role_name: apprise
 
   license: Apache
 
