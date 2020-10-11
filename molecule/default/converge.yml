@@ -1,0 +1,38 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    apprise:
+      enabled: true
+      notifications:
+        - name: backup
+          title: "Backup went wrong"
+          body_type: cmd_stdout
+          body_cmd: 'systemctl status --full $1'
+          notification_method: telegram
+          telegram_notify_settings:
+            bottoken: "testtoken"
+            chat_id: "testchat"
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+      changed_when: false
+      when: ansible_os_family == 'Debian'
+
+  roles:
+    - role: apprise
+
+  post_tasks:
+    - name: Check systemd file exists
+      stat:
+        path: "/etc/systemd/system/apprise-backup-telegram@.service"
+      register: systemd_unit
+      changed_when: false
+
+    - name: Fail if systemd file does not exist
+      fail:
+        msg: "Whoa!! Systemd service does not exist"
+      when: not systemd_unit.stat.exists

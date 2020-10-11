@@ -17,7 +17,7 @@
 - name: Upgrade pip in virtualenv
   pip:
     name: pip
-    state: latest
+    state: present
     virtualenv: "{{ apprise.venv_dir }}"
   become_user: "{{ apprise.owner }}"
   become: yes
